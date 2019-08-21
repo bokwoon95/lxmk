@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BUILD_PATH=${BASH_SOURCE[0]}
+BUILD_NAME=${BUILD_PATH##*/}
+BUILD_DIR="$(cd "$(dirname "${BUILD_PATH:-$PWD}")" 2>/dev/null 1>&2 && pwd)"
+SRC_DIR="$PWD"
+
+argc="$#";: "$((i=0))"
+while [ "$i" -lt "$argc" ]; do
+  if [ "$(echo "$1" | cut -c1-1)" = '-' ]; then OPTS="$OPTS $1"
+  else
+    SRC_FILE="$1"
+  fi
+  shift;: "$((i=i+1))"
+done
+
+cmd="latexmk -pvc -pdf $OPTS $SRC_DIR/$SRC_FILE"
+cd "$BUILD_DIR"
+eval "$cmd"
