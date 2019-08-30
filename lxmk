@@ -14,6 +14,6 @@ while [ "$i" -lt "$argc" ]; do
   shift;: "$((i=i+1))"
 done
 
-cmd="latexmk -pvc -pdf $OPTS $SRC_DIR/$SRC_FILE"
+cmd="latexmk -pvc -pdf -interaction=nonstopmode $OPTS $SRC_DIR/$SRC_FILE"
 cd "$BUILD_DIR"
 eval "$cmd"
